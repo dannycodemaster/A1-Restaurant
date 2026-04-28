@@ -1,3 +1,4 @@
+
 <img width="953" height="417" alt="tract" src="https://github.com/user-attachments/assets/ae8d413f-cb1e-4ece-8ecc-e15604c2d692" />
 <img width="1907" height="834" alt="Screenshot 2026-04-28 135036" src="https://github.com/user-attachments/assets/6ef3b1fd-74d0-45bb-a800-dfbed4227747" />
 <img width="581" height="553" alt="Screenshot 2026-04-28 134754" src="https://github.com/user-attachments/assets/9181d914-7534-41fb-99fa-8f02a42549e6" />
@@ -9,7 +10,6 @@
 <img width="383" height="387" alt="a1 order" src="https://github.com/user-attachments/assets/4158fd8d-73c2-4654-97ef-7819971c5fd7" />
 <img width="326" height="269" alt="a1 add" src="https://github.com/user-attachments/assets/53d33873-aada-4fdf-802b-7631f3de94f0" />
 <img width="946" height="356" alt="ai" src="https://github.com/user-attachments/assets/282654f3-3b06-41c7-b32d-ae882ccc79d2" />
-<img width="947" height="432" alt="a12" src="https://github.com/user-attachments/assets/07843321-1f72-47a3-8227-31b5cfb82fd1" />
 <img width="946" height="356" alt="image" src="https://github.com/user-attachments/assets/e49ff1c1-8442-4bd8-918b-6ef968e6e510" />
 # A1-Restaurant
 A1 Restaurant a comfortable way to order food
