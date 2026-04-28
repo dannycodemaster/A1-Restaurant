@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | A1 Restaurant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            background-color: var(--bg-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .customer-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 12, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .login-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 3rem;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .orders-section {
+            max-width: 800px;
+            margin: 3rem auto;
+            width: 100%;
+            padding: 0 2rem;
+            display: none;
+        }
+
+        .order-history-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .status-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .status-Pending { background: rgba(255, 107, 53, 0.1); color: var(--primary); border: 1px solid var(--primary); }
+        .status-Confirmed { background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid #22c55e; }
+        .status-Cancelled { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid #ef4444; }
+
+        .back-link {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="customer-header">
+        <div class="logo">A1 GUEST PORTAL</div>
+        <div id="userProfile" style="display: none; align-items: center; gap: 1rem;">
+            <span id="userNameDisplay" style="color: var(--text-main);"></span>
+            <button class="btn-secondary" onclick="logout()" style="padding: 0.5rem 1rem; border-radius: 50px;">Logout</button>
+        </div>
+    </header>
+
+    <!-- Login Area -->
+    <section class="login-section" id="loginArea">
+        <div class="login-card">
+            <h1 style="margin-bottom: 1rem;">Track Your <span>Orders</span></h1>
+            <p style="color: var(--text-muted); margin-bottom: 2.5rem;">Enter the phone number you used during checkout to see your order history and status.</p>
+            
+            <div style="text-align: left; margin-bottom: 1.5rem;">
+                <label style="font-size: 0.8rem; color: var(--primary); margin-bottom: 0.5rem; display: block; font-weight: 600;">PHONE NUMBER</label>
+                <input type="tel" id="loginPhone" placeholder="e.g. 08012345678" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 1.2rem; border-radius: 12px; color: white; font-size: 1.1rem;">
+            </div>
+            
+            <button class="btn-primary" style="width: 100%; padding: 1.2rem;" onclick="customerLogin()">Lookup Orders</button>
+            <p id="loginMsg" style="margin-top: 1.5rem; font-size: 0.9rem; display: none;"></p>
+        </div>
+    </section>
+
+    <!-- Orders Area -->
+    <section class="orders-section" id="ordersArea">
+        <div style="margin-bottom: 3rem;">
+            <h2>Your Order <span>History</span></h2>
+            <p style="color: var(--text-muted);">Real-time status of your culinary experiences.</p>
+        </div>
+        
+        <div id="ordersList">
+            <!-- Orders will be injected here -->
+        </div>
+    </section>
+
+    <a href="index.html" class="back-link">
+        <span>&larr;</span> Back to Menu
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/database.js"></script>
+    <script src="js/customer.js"></script>
+</body>
+</html>

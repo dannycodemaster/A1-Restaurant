@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal | A1 Restaurant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            background-color: var(--bg-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .staff-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 12, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-box {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 3rem;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .portal-container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            width: 100%;
+            padding: 0 2rem;
+            display: none;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-card h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .data-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .data-card:hover {
+            border-color: var(--secondary);
+            transform: translateX(5px);
+        }
+        
+        .badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-pending { background: rgba(255, 107, 53, 0.2); color: var(--primary); }
+        .badge-confirmed { background: rgba(76, 201, 240, 0.2); color: var(--secondary); }
+
+        .back-home {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="staff-header">
+        <div class="logo">A1 COMMAND CENTER</div>
+        <div id="staffWelcome" style="display: none; align-items: center; gap: 1rem;">
+            <span style="color: var(--text-muted);">Logged in as Staff</span>
+            <button class="btn-secondary" onclick="logout()" style="padding: 0.5rem 1rem;">Logout</button>
+        </div>
+    </header>
+
+    <!-- Login screen -->
+    <div class="login-container" id="loginScreen">
+        <div class="login-box">
+            <div style="width: 70px; height: 70px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                <img src="https://img.icons8.com/m_rounded/512/FFFFFF/lock.png" width="35">
+            </div>
+            <h2 style="margin-bottom: 0.5rem;">Staff Access</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">Please verify your identity</p>
+            
+            <input type="password" id="passInput" placeholder="Access Code" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 1rem; border-radius: 12px; color: white; margin-bottom: 1.5rem; text-align: center; letter-spacing: 5px; font-size: 1.2rem;">
+            <button class="btn-primary" style="width: 100%;" onclick="verify()">Initialize Console</button>
+            <p id="errorMessage" style="color: #ff4d4d; font-size: 0.85rem; margin-top: 1rem; display: none;">Invalid authentication code.</p>
+        </div>
+    </div>
+
+    <!-- Portal Content -->
+    <div class="portal-container" id="portalContent">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Total Orders</p>
+                <h2 id="totalOrders">0</h2>
+            </div>
+            <div class="stat-card">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Reservations</p>
+                <h2 id="totalRes" style="color: var(--secondary);">0</h2>
+            </div>
+            <div class="stat-card">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Daily Revenue</p>
+                <h2 id="dailyRevenue" style="color: #22c55e;">$0</h2>
+            </div>
+        </div>
+
+        <div class="staff-tabs" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+            <button class="category-pill active" id="btnOrders" onclick="switchTab('orders')">Manage Orders</button>
+            <button class="category-pill" id="btnRes" onclick="switchTab('res')">Reservations</button>
+        </div>
+
+        <div id="dataList" class="data-grid">
+            <!-- Data injected here -->
+        </div>
+    </div>
+
+    <a href="index.html" class="back-home">
+        <span>&larr;</span> Back to Site
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/database.js"></script>
+    <script src="js/staff.js"></script>
+</body>
+</html>
